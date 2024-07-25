@@ -20,7 +20,7 @@ global.packname = "My Sticker"
 global.prefa = ['#']
 global.author = "Sticker Saya"
 global.creator = "6288214772441@s.whatsapp.net"
-global.xprefix = '/'
+global.xprefix = ''
 global.premium = ["6288214772441"] // Premium User
 global.hituet = 0
 
