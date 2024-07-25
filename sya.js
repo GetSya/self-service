@@ -314,11 +314,11 @@ module.exports = client = async (client, m, chatUpdate, store) => {
             fromMe
         } = m
         const body = (m.mtype === 'conversation') ? m.message.conversation : (m.mtype == 'imageMessage') ? m.message.imageMessage.caption : (m.mtype == 'videoMessage') ? m.message.videoMessage.caption : (m.mtype == 'extendedTextMessage') ? m.message.extendedTextMessage.text : (m.mtype == 'buttonsResponseMessage') ? m.message.buttonsResponseMessage.selectedButtonId : (m.mtype == "interactiveResponseMessage") ? JSON.parse(m.message[m.mtype].nativeFlowResponseMessage?.paramsJson).id : (m.mtype == 'templateButtonReplyMessage') ? m.message.templateButtonReplyMessage.selectedId : (m.mtype === 'messageContextInfo') ? (m.message.buttonsResponseMessage?.selectedButtonId || m.message.listResponseMessage?.singleSelectReply.selectedRowId || m.text) : ''
-        var budy = (typeof m.text == 'string' ? m.text : '')
-        //prefix 1
-        const prefix = prefa ? /^[°•π÷×¶∆£¢€¥®™+✓_=|~!?@#$%/^&.©^]/gi.test(body) ? body.match(/^[°•π÷×¶/∆£¢€¥®™+✓_=|~!?@#$%^&.©^]/gi)[0] : "/" : prefa ?? global.prefix
-        const isCmd = body.startsWith(prefix, '')
+        var budy = (typeof m.text == 'string' ? m.text : '')//prefix 1
+        const prefix = xprefix ? /^[°•π÷×¶∆£¢€¥®™+✓_=|~!?@#$%/^&.©^]/gi.test(body) ? body.match(/^[°•π÷×¶/∆£¢€¥®™+✓_=|~!?@#$%^&.©^]/gi)[0] : "/" : xprefix ?? global.prefix
         const isCmd2 = body.startsWith(prefix)
+const isCmd = body.startsWith(prefix, '')
+        
         const command = body.replace(prefix, '').trim().split(/ +/).shift().toLowerCase()
         const command2 = body.slice(1).trim().split(/ +/).shift().toLowerCase()
         const args = body.trim().split(/ +/).slice(1)
@@ -554,7 +554,7 @@ module.exports = client = async (client, m, chatUpdate, store) => {
                 online: false,
                 autosticker: false,
                 autobio: false,
-                autoread: true,
+                autoread: false,
                 autoblocknum: false,
                 onlyindia: false,
                 onlyindo: false,
@@ -799,7 +799,7 @@ module.exports = client = async (client, m, chatUpdate, store) => {
                 client.sendPresenceUpdate('unavailable', from)
             }
         }
-        client.readMessages([m.key])
+        
         //auto set bio\\
         if (db.data.settings[botNumber].autobio) {
             client.updateProfileStatus(`${botname} Have Been Running For ${runtime(process.uptime())}`).catch(_ => _)
@@ -1350,7 +1350,11 @@ click https://wa.me/${botNumber.split`@`[0]}`, m, { mentions: [roof.p, roof.p2] 
         }
 
         switch (isCommand) {
-            case 'readviewonce': case 'rvo': {
+          case 'test':{
+            reply(`hallo`)
+          }
+          break
+            case 'wow': case 'rvo': {
                 (async () => {
                     const { downloadContentFromMessage } = require("@whiskeysockets/baileys")
                     let quoted = m.message.extendedTextMessage.contextInfo.quotedMessage
