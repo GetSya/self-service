@@ -577,7 +577,7 @@ client.sendContact = async (jid, kon, quoted = '', opts = {}) => {
 	client.sendMessage(jid, { contacts: { displayName: `${list.length} Contact`, contacts: list }, ...opts }, { quoted })
     }
 
-    client.public = true
+    client.public = false
 
     client.serializeM = (m) => smsg(client, m, store)
 
